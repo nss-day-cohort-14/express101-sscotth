@@ -1,0 +1,20 @@
+nav.navbar.navbar-inverse.navbar-fixed-top
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle="collapse", data-target="#navbar")
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/') #{company}
+
+    #navbar.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li(class={ active: !page })
+          //- li(class=`${page || 'active'}`)
+          a(href='/') Home
+        li(class={ active: page === 'About' })
+          //- li(class=`${page === 'About' ? 'active' : ''}`)
+          a(href='/about') About
+        li(class={ active: page === 'Contact' })
+          //- li(class=`${page === 'Contact' ? 'active' : ''}`)
+          a(href='/contact') Contact

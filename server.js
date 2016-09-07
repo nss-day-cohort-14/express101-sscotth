@@ -15,6 +15,8 @@ if (process.env.NODE_ENV !== 'production') {
   app.locals.pretty = true
 }
 
+app.locals.company = '🍕 Pizza de Scott'
+
 // middlewares
 app.use(express.static('public'))
 
@@ -24,11 +26,11 @@ app.get('/', (req, res) =>
 )
 
 app.get('/about', (req, res) =>
-  res.render('about')
+  res.render('about', { page: 'About' })
 )
 
 app.get('/contact', (req, res) =>
-  res.render('contact')
+  res.render('contact', { page: 'Contact' })
 )
 
 // Listen to requests on the provided port and log when available
