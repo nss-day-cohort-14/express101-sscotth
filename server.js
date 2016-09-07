@@ -8,6 +8,9 @@ const app = express()
 const port = process.env.PORT || 3000
 app.set('port', port)
 
+// middlewares
+app.use(express.static('public'))
+
 // routes
 app.get('/', (req, res) =>
   res.send('<h1>Welcome to My App!</h1>')
