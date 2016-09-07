@@ -23,6 +23,10 @@ app.get('/', (req, res) =>
   res.render('index')
 )
 
+app.get('/about', (req, res) =>
+  res.render('about')
+)
+
 // Listen to requests on the provided port and log when available
 app.listen(port, () =>
   console.log(`Listening on port: ${port}`)
