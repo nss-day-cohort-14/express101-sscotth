@@ -1,0 +1,25 @@
+{
+  "name": "express101-sscotth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nss-day-cohort-14/express101-sscotth.git"
+  },
+  "keywords": [],
+  "author": "Scott Humphries <npm@sscotth.io> (https://sscotth.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nss-day-cohort-14/express101-sscotth/issues"
+  },
+  "homepage": "https://github.com/nss-day-cohort-14/express101-sscotth#readme"
+}
