@@ -8,12 +8,19 @@ const app = express()
 const port = process.env.PORT || 3000
 app.set('port', port)
 
+// pug configuration
+app.set('view engine', 'pug')
+
+if (process.env.NODE_ENV !== 'production') {
+  app.locals.pretty = true
+}
+
 // middlewares
 app.use(express.static('public'))
 
 // routes
 app.get('/', (req, res) =>
-  res.send('<h1>Welcome to My App!</h1>')
+  res.render('index')
 )
 
 // Listen to requests on the provided port and log when available
