@@ -15,3 +15,7 @@ body {
   max-height: 250px;
   max-width: 250px;
 }
+
+.contact-form__submit {
+  text-align: right
+}

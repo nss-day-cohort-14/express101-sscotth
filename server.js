@@ -27,6 +27,10 @@ app.get('/about', (req, res) =>
   res.render('about')
 )
 
+app.get('/contact', (req, res) =>
+  res.render('contact')
+)
+
 // Listen to requests on the provided port and log when available
 app.listen(port, () =>
   console.log(`Listening on port: ${port}`)
