@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.locals.company = '🍕 Pizza de Scott'
 
 // middlewares
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // routes
 app.get('/', (req, res) =>
@@ -32,6 +34,11 @@ app.get('/about', (req, res) =>
 app.get('/contact', (req, res) =>
   res.render('contact', { page: 'Contact' })
 )
+
+app.post('/contact', (req, res) => {
+  console.log(req.body)
+  res.redirect('/')
+})
 
 // Listen to requests on the provided port and log when available
 app.listen(port, () =>
