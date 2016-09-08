@@ -47,12 +47,10 @@ app.post('/contact', (req, res) => {
   res.redirect('/')
 })
 
-// 404: Not Found Catch and pass to error handling middleware
-app.use((req, res, next) => {
-  const err = Error('Not Found')
-  err.status = 404
-  next(err)
-})
+// Custom 404 page
+app.use((req, res) =>
+  res.render('404')
+)
 
 // Error handling middleware
 app.use((
