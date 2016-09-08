@@ -47,14 +47,21 @@ app.post('/contact', (req, res) => {
   res.redirect('/')
 })
 
-// Error handling middlewares
+// 404: Not Found Catch and pass to error handling middleware
+app.use((req, res, next) => {
+  const err = Error('Not Found')
+  err.status = 404
+  next(err)
+})
+
+// Error handling middleware
 app.use((
     err,
     { method, url, headers: { 'user-agent': agent } },
     res,
     next
   ) => {
-    res.sendStatus(500)
+    res.sendStatus(err.status || 500)
 
     const timeStamp = new Date()
     const statusCode = res.statusCode
