@@ -2,7 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const { cyan } = require('chalk')
+const { cyan, red } = require('chalk')
 
 const app = express()
 
@@ -14,14 +14,15 @@ app.set('port', port)
 app.set('view engine', 'pug')
 
 if (process.env.NODE_ENV !== 'production') {
-  app.locals.pretty = true
+  // app.locals.pretty = true
 }
 
 app.locals.company = '🍕 Pizza de Scott'
 
 // middlewares
 app.use(({ method, url, headers: { 'user-agent': agent } }, res, next) => {
-  console.log(`[${new Date()}] "${cyan(`${method} ${url}`)}" "${agent}"`)
+  const timeStamp = new Date()
+  console.log(`[${timeStamp}] "${cyan(`${method} ${url}`)}" "${agent}"`)
   next()
 })
 
@@ -45,6 +46,26 @@ app.post('/contact', (req, res) => {
   console.log(req.body)
   res.redirect('/')
 })
+
+// Error handling middlewares
+app.use((
+    err,
+    { method, url, headers: { 'user-agent': agent } },
+    res,
+    next
+  ) => {
+    res.sendStatus(500)
+
+    const timeStamp = new Date()
+    const statusCode = res.statusCode
+    const statusMessage = res.statusMessage
+
+    console.error(
+      `[${timeStamp}] "${red(`${method} ${url}`)}" Error (${statusCode}): "${statusMessage}"`
+    )
+    console.error(err.stack)
+  }
+)
 
 // Listen to requests on the provided port and log when available
 app.listen(port, () =>
