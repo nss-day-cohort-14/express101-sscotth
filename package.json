@@ -24,7 +24,9 @@
     "type": "git",
     "url": "git+https://github.com/nss-day-cohort-14/express101-sscotth.git"
   },
-  "keywords": [],
+  "keywords": [
+    "Pizza Store"
+  ],
   "author": "Scott Humphries <npm@sscotth.io> (https://sscotth.io/)",
   "license": "MIT",
   "bugs": {
