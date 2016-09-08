@@ -2,6 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const { cyan } = require('chalk')
 
 const app = express()
 
@@ -19,6 +20,11 @@ if (process.env.NODE_ENV !== 'production') {
 app.locals.company = '🍕 Pizza de Scott'
 
 // middlewares
+app.use(({ method, url, headers: { 'user-agent': agent } }, res, next) => {
+  console.log(`[${new Date()}] "${cyan(`${method} ${url}`)}" "${agent}"`)
+  next()
+})
+
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 
