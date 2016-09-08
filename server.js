@@ -4,6 +4,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { cyan, red } = require('chalk')
 
+const routes = require('./routes/') // same as ./routes/index.js
+
 const app = express()
 
 // Get port from environment and store in Express.
@@ -30,22 +32,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // routes
-app.get('/', (req, res) =>
-  res.render('index')
-)
-
-app.get('/about', (req, res) =>
-  res.render('about', { page: 'About' })
-)
-
-app.get('/contact', (req, res) =>
-  res.render('contact', { page: 'Contact' })
-)
-
-app.post('/contact', (req, res) => {
-  console.log(req.body)
-  res.redirect('/')
-})
+app.use(routes)
 
 // Custom 404 page
 app.use((req, res) =>
