@@ -37,7 +37,7 @@ app.use(routes)
 // Custom 404 page
 app.use((req, res) =>
   res.render('404')
-asdf
+)
 
 // Error handling middleware
 app.use((
