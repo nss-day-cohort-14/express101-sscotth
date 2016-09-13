@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const { cyan, red } = require('chalk')
 
 const routes = require('./routes/') // same as ./routes/index.js
+const { connect } = require('./database')
 
 const app = express()
 
@@ -60,6 +61,10 @@ app.use((
 )
 
 // Listen to requests on the provided port and log when available
-app.listen(port, () =>
-  console.log(`Listening on port: ${port}`)
-)
+connect()
+  .then(() => {
+    app.listen(port, () =>
+      console.log(`Listening on port: ${port}`)
+    )
+  })
+  .catch(console.error)
