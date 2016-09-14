@@ -1,10 +1,9 @@
 'use strict'
 
-const { MongoClient: { connect } } = require('mongodb')
+const mongoose = require('mongoose')
 
 const MONGODB_URL = 'mongodb://localhost:27017/pizzadescott'
 
-let db
+mongoose.Promise = Promise
 
-module.exports.connect = () => connect(MONGODB_URL).then(_db => db = _db)
-module.exports.db = () => db
+module.exports.connect = () => mongoose.connect(MONGODB_URL)
