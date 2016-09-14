@@ -5,6 +5,7 @@ const router = Router()
 
 const Contact = require('../models/contact')
 const Order = require('../models/order')
+const Size = require('../models/size')
 
 router.get('/', (req, res) =>
   res.render('index')
@@ -26,7 +27,10 @@ router.post('/contact', (req, res, err) =>
 )
 
 router.get('/order', (req, res) =>
-  res.render('order', { page: 'Order' })
+  Size
+    .find()
+    .sort({ inches: 1 })
+    .then(sizes => res.render('order', { page: 'Order', sizes }))
 )
 
 router.post('/order', (req, res, err) =>
