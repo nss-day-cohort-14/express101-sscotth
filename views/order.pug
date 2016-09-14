@@ -19,7 +19,12 @@ block content
         select.form-control#size(name='size')
           option Select a size:
           each size in sizes
-           option(value=size.inches) #{size.name}: #{size.inches}"
+            option(value=size.inches) #{size.name}: #{size.inches}"
+      .form-group
+        label(for='toppings') Toppings
+        select.form-control#toppings(name='toppings' multiple)
+          each topping in toppings
+            option(value=topping.name)= topping.name
       .order-form__submit
         a.btn.btn-danger.btn-lg(href='/') Cancel
         input.btn.btn-success.btn-lg(type='submit' value='Submit')
