@@ -7,4 +7,5 @@ module.exports = mongoose.model('Order', {
   email: String,
   phone: String,
   size: Number,
+  toppings: [String], // toppings should be an array of `String`s
 })
