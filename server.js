@@ -17,7 +17,7 @@ app.set('port', port)
 app.set('view engine', 'pug')
 
 if (process.env.NODE_ENV !== 'production') {
-  // app.locals.pretty = true
+  app.locals.pretty = true
 }
 
 app.locals.company = '🍕 Pizza de Scott'
@@ -49,7 +49,12 @@ app.use((
     res,
     next
   ) => {
-    res.sendStatus(err.status || 500)
+
+    if (process.env.NODE_ENV === 'production') {
+      res.sendStatus(err.status || 500)
+    } else {
+      res.set('Content-Type', 'text/plain').send(err.stack)
+    }
 
     const timeStamp = new Date()
     const statusCode = res.statusCode
