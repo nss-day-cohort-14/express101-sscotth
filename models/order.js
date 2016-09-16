@@ -10,7 +10,7 @@ module.exports = mongoose.model('Order', {
     type: String,
     lowercase: true,
     required: true,
-    match: [HTML5_EMAIL_REGEX, 'Please fill a valid email address'],
+    match: [HTML5_EMAIL_REGEX, 'Please enter a valid email address'],
   },
   phone: { type: String, required: [true, 'Please enter a phone number'] },
   size: { type: Number, required: [true, 'Please select a valid size'] },
