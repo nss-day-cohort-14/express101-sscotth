@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.locals.company = '🍕 Pizza de Scott'
 app.locals.errors = {} // errors & body added to avoid guard statements
-app.locals.body = { toppings: [] } // i.e. value=(body && body.name) vs. value=body.name
+app.locals.body = {} // i.e. value=(body && body.name) vs. value=body.name
 
 // middlewares
 app.use(({ method, url, headers: { 'user-agent': agent } }, res, next) => {

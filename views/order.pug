@@ -58,7 +58,7 @@ block content
           each topping in toppings
             option(
               value=topping.name
-              selected=body.toppings.includes(topping.name)
+              selected=(body.toppings && body.toppings.includes(topping.name))
             )= topping.name
         if errors.toppings
           span.help-block= errors.toppings.message
