@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const { cyan, red } = require('chalk')
 
 const routes = require('./routes/') // same as ./routes/index.js
-const { connect } = require('./database')
+const { connect } = require('./db/database')
 
 const app = express()
 
