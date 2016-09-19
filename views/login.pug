@@ -3,8 +3,8 @@ extends partials/layout.pug
 block content
   .heading
     h1 Login
-    if error
-      h2= error
+    if msg
+      h2= msg
   .login-form
     form(method='POST')
       .form-group
