@@ -1,6 +1,8 @@
 'use strict'
 
 const { Router } = require('express')
+const bcrypt = require('bcrypt')
+
 const router = Router()
 
 const Contact = require('../models/contact')
@@ -74,12 +76,25 @@ router.get('/login', (req, res) =>
 router.post('/login', ({ body: { email, password } }, res, err) => {
   User.findOne({ email })
     .then(user => {
-      if (user && password === user.password) {
-        res.redirect('/')
-      } else if (user) {
-        res.render('login', { msg: 'Password does not match' })
+      if (user) {
+        return new Promise((resolve, reject) => {
+          bcrypt.compare(password, user.password, (err, matches) => {
+            if (err) {
+              reject(err)
+            } else {
+              resolve(matches)
+            }
+          })
+        })
       } else {
         res.render('login', { msg: 'Email does not exist in our system' })
+      }
+    })
+    .then((matches) => {
+      if (matches) {
+        res.redirect('/')
+      } else {
+        res.render('login', { msg: 'Password does not match' })
       }
     })
     .catch(err)
@@ -96,9 +111,18 @@ router.post('/register', ({ body: { email, password, confirmation } }, res, err)
         if (user) {
           res.render('register', { msg: 'Email is already registered' })
         } else {
-          return User.create({ email, password })
+          return new Promise((resolve, reject) => {
+            bcrypt.hash(password, 15, (err, hash) => {
+              if (err) {
+                reject(err)
+              } else {
+                resolve(hash)
+              }
+            })
+          })
         }
       })
+      .then(hash => User.create({ email, password: hash }))
       .then(() => res.redirect('/login'), { msg: 'User created' })
       .catch(err)
   } else {
