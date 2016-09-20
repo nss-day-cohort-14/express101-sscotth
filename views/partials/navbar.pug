@@ -20,7 +20,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
         li(class={ active: page === 'Order' })
           a(href='/order') Order
         if email
-          li: a(href='#') Logged in as #{email}
+          li: a(href='/logout') Logged in as #{email}
         else
           li(class={ active: page === 'Login' })
             a(href='/login') Login
