@@ -3,6 +3,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
 const { cyan, red } = require('chalk')
 
 const routes = require('./routes/') // same as ./routes/index.js
@@ -27,6 +28,7 @@ app.locals.body = {} // i.e. value=(body && body.name) vs. value=body.name
 
 // middlewares
 app.use(session({
+  store: new RedisStore(),
   secret: 'pizzadescottsupersecretkey'
 }))
 
