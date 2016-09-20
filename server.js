@@ -2,6 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const session = require('express-session')
 const { cyan, red } = require('chalk')
 
 const routes = require('./routes/') // same as ./routes/index.js
@@ -25,6 +26,15 @@ app.locals.errors = {} // errors & body added to avoid guard statements
 app.locals.body = {} // i.e. value=(body && body.name) vs. value=body.name
 
 // middlewares
+app.use(session({
+  secret: 'pizzadescottsupersecretkey'
+}))
+
+app.use((req, res, next) => {
+  app.locals.email = req.session.email
+  next()
+})
+
 app.use(({ method, url, headers: { 'user-agent': agent } }, res, next) => {
   const timeStamp = new Date()
   console.log(`[${timeStamp}] "${cyan(`${method} ${url}`)}" "${agent}"`)
