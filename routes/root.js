@@ -2,9 +2,9 @@
 
 const { Router } = require('express')
 
-const router = Router()
-
 const { index } = require('../controllers/home')
+
+const router = Router()
 
 router.get('/', index)
 
