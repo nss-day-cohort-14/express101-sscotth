@@ -2,11 +2,11 @@
 
 const { Router } = require('express')
 
-const login = require('../controllers/login')
+const session = require('../controllers/session')
 
 const router = Router()
 
-router.get('/login', login.new)
-router.post('/login', login.create)
+router.get('/login', session.new)
+router.post('/login', session.create)
 
 module.exports = router
