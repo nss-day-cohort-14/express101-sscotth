@@ -1,34 +1,25 @@
 'use strict'
 
-const User = require('../models/user')
+const passport = require('passport')
 
 module.exports.new = (req, res) =>
   res.render('login')
 
-module.exports.create = ({ session, body: { email, password } }, res, err) =>
-  User.findOneByEmail(email)
-    .then(user => {
-      if (user) {
-        return user.comparePassword(password)
-      } else {
-        res.render('login', { msg: 'Email does not exist in our system' })
-      }
+module.exports.create = (req, res, next) =>
+  passport.authenticate('local', (err, user, msg) => {
+    if (err) { return next(err) }
+    if (!user) { return res.render('login', msg) }
+
+    req.logIn(user, err => {
+      if (err) { return next(err) }
+      res.redirect('/')
     })
-    .then((matches) => {
-      if (matches) {
-        session.email = email
-        res.redirect('/')
-      } else {
-        res.render('login', { msg: 'Password does not match' })
-      }
-    })
-    .catch(err)
+  })(req, res, next)
 
 module.exports.edit = (req, res) =>
   res.render('logout', { page: 'Logout'})
 
-module.exports.destroy = (req, res) =>
-  req.session.destroy(err => {
-    if (err) throw err
-    res.redirect('/login')
-  })
+module.exports.destroy = (req, res) => {
+  req.logout()
+  res.redirect('/login')
+}

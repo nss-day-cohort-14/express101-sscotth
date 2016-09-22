@@ -13,7 +13,7 @@ router.use(require('./root'))
 
 // login guard middleware
 router.use((req, res, next) => {
-  if (req.session.email) {
+  if (req.isAuthenticated()) {
     next()
   } else {
     res.redirect('/login')
