@@ -32,6 +32,8 @@ app.use(session({
   store: new RedisStore({
     url: process.env.REDIS_URL || 'redis://localhost:6379',
   }),
+  resave: false,
+  saveUninitialized: false,
   secret: process.env.SESSION_SECRET || 'pizzadescottsupersecretkey',
 }))
 
