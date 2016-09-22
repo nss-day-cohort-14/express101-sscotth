@@ -9,7 +9,7 @@ module.exports.new = (req, res) =>
 
 module.exports.create = ({ body: { email, password, confirmation } }, res, err) => {
   if (password === confirmation) {
-    User.findOne({ email })
+    User.findOneByEmail(email)
       .then(user => {
         if (user) {
           res.render('register', { msg: 'Email is already registered' })

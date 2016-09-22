@@ -8,7 +8,7 @@ module.exports.new = (req, res) =>
   res.render('login')
 
 module.exports.create = ({ session, body: { email, password } }, res, err) =>
-  User.findOne({ email })
+  User.findOneByEmail(email)
     .then(user => {
       if (user) {
         return new Promise((resolve, reject) =>
