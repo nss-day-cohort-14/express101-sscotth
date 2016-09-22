@@ -17,7 +17,7 @@ module.exports.create = (req, res, next) =>
   })(req, res, next)
 
 module.exports.edit = (req, res) =>
-  res.render('logout', { page: 'Logout'})
+  res.render('logout', { page: 'Logout' })
 
 module.exports.destroy = (req, res) => {
   req.logout()

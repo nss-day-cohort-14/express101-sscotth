@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const HTML5_EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 module.exports = mongoose.model('Order', {
-  name: { type: String, required: [true , 'Please enter a name'] },
+  name: { type: String, required: [true, 'Please enter a name'] },
   email: {
     type: String,
     lowercase: true,

@@ -30,9 +30,9 @@ app.locals.body = {} // i.e. value=(body && body.name) vs. value=body.name
 // middlewares
 app.use(session({
   store: new RedisStore({
-    url: process.env.REDIS_URL || 'redis://localhost:6379'
+    url: process.env.REDIS_URL || 'redis://localhost:6379',
   }),
-  secret: 'pizzadescottsupersecretkey'
+  secret: process.env.SESSION_SECRET || 'pizzadescottsupersecretkey',
 }))
 
 require('./lib/passport-strategies')
@@ -68,23 +68,21 @@ app.use((
     res,
     next
   ) => {
-
-    if (process.env.NODE_ENV === 'production') {
-      res.sendStatus(err.status || 500)
-    } else {
-      res.set('Content-Type', 'text/plain').send(err.stack)
-    }
-
-    const timeStamp = new Date()
-    const statusCode = res.statusCode
-    const statusMessage = res.statusMessage
-
-    console.error(
-      `[${timeStamp}] "${red(`${method} ${url}`)}" Error (${statusCode}): "${statusMessage}"`
-    )
-    console.error(err.stack)
+  if (process.env.NODE_ENV === 'production') {
+    res.sendStatus(err.status || 500)
+  } else {
+    res.set('Content-Type', 'text/plain').send(err.stack)
   }
-)
+
+  const timeStamp = new Date()
+  const statusCode = res.statusCode
+  const statusMessage = res.statusMessage
+
+  console.error(
+    `[${timeStamp}] "${red(`${method} ${url}`)}" Error (${statusCode}): "${statusMessage}"`
+  )
+  console.error(err.stack)
+})
 
 // Listen to requests on the provided port and log when available
 connect()

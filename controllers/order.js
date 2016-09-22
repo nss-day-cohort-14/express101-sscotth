@@ -22,7 +22,7 @@ module.exports.create = ({ body }, res, err) =>
   Order
     .create(body)
     .then(() => res.redirect('/'))
-    .catch(({ errors })  =>
+    .catch(({ errors }) =>
       Promise.all([ // retrieve sizes and toppings again,
         Promise.resolve(errors), // but pass the errors along as well
         Size.find().sort({ inches: 1 }),
