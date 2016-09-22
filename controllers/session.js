@@ -1,7 +1,5 @@
 'use strict'
 
-const bcrypt = require('bcrypt')
-
 const User = require('../models/user')
 
 module.exports.new = (req, res) =>
@@ -11,15 +9,7 @@ module.exports.create = ({ session, body: { email, password } }, res, err) =>
   User.findOneByEmail(email)
     .then(user => {
       if (user) {
-        return new Promise((resolve, reject) =>
-          bcrypt.compare(password, user.password, (err, matches) => {
-            if (err) {
-              reject(err)
-            } else {
-              resolve(matches)
-            }
-          })
-        )
+        return user.comparePassword(password)
       } else {
         res.render('login', { msg: 'Email does not exist in our system' })
       }
