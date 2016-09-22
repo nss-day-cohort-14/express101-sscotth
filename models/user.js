@@ -1,8 +1,9 @@
 'use strict'
 
-const { compare } = require('bcrypt')
+const { compare, hash } = require('bcrypt')
 const mongoose = require('mongoose')
 
+const BCRYPT_DIFFICULTY = 15
 const HTML5_EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 const userSchema = new mongoose.Schema({
@@ -17,6 +18,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   }
+})
+
+// lifecycle methods
+userSchema.pre('save', function (cb) {
+  const user = this
+  hash(user.password, BCRYPT_DIFFICULTY, (err, hashedPassword) => {
+    if (err) { return cb(err) }
+    user.password = hashedPassword
+    cb()
+  })
 })
 
 // class/static/model methods

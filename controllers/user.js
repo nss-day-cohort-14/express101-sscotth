@@ -1,7 +1,5 @@
 'use strict'
 
-const bcrypt = require('bcrypt')
-
 const User = require('../models/user')
 
 module.exports.new = (req, res) =>
@@ -12,20 +10,11 @@ module.exports.create = ({ body: { email, password, confirmation } }, res, err) 
     User.findOneByEmail(email)
       .then(user => {
         if (user) {
-          res.render('register', { msg: 'Email is already registered' })
-        } else {
-          return new Promise((resolve, reject) => {
-            bcrypt.hash(password, 15, (err, hash) => {
-              if (err) {
-                reject(err)
-              } else {
-                resolve(hash)
-              }
-            })
-          })
+          return res.render('register', { msg: 'Email is already registered' })
         }
+
+        return User.create({ email, password })
       })
-      .then(hash => User.create({ email, password: hash }))
       .then(() => res.redirect('/login'))
       .catch(err)
   } else {
